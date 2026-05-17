@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="英语消消乐图标">
+  <rect width="512" height="512" rx="112" fill="#fff7df" />
+  <circle cx="96" cy="96" r="28" fill="#ffd45a" opacity=".78" />
+  <circle cx="420" cy="118" r="34" fill="#70d6ff" opacity=".7" />
+  <circle cx="418" cy="400" r="48" fill="#ff8fab" opacity=".34" />
+  <path
+    d="M92 280c0-84 68-152 152-152s152 68 152 152-68 152-152 152S92 364 92 280Z"
+    fill="#2ec4b6"
+  />
+  <path
+    d="M124 268c0-70 57-126 126-126 52 0 96 31 116 76-25-27-61-44-101-44-76 0-138 62-138 138 0 18 4 36 10 52-8-17-13-38-13-96Z"
+    fill="#ffffff"
+    opacity=".34"
+  />
+  <rect x="166" y="200" width="156" height="130" rx="30" fill="#ffffff" />
+  <rect x="186" y="220" width="116" height="90" rx="22" fill="#ffd45a" />
+  <circle cx="218" cy="256" r="10" fill="#24404f" />
+  <circle cx="270" cy="256" r="10" fill="#24404f" />
+  <path
+    d="M222 286c14 16 32 16 46 0"
+    fill="none"
+    stroke="#24404f"
+    stroke-width="12"
+    stroke-linecap="round"
+  />
+  <circle cx="196" cy="288" r="13" fill="#ff8fab" opacity=".65" />
+  <circle cx="292" cy="288" r="13" fill="#ff8fab" opacity=".65" />
+  <path
+    d="M356 170l14 36 38 8-30 25 4 39-33-20-36 16 9-38-26-29 39-4 21-33Z"
+    fill="#ff8a65"
+  />
+</svg>
