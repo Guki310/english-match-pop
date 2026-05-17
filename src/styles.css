@@ -1,0 +1,211 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: #111318;
+  color: #f3f5f7;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+#game {
+  position: fixed;
+  inset: 0;
+}
+
+#enemy-bars {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.enemy-bar {
+  position: absolute;
+  width: 86px;
+  height: 10px;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: rgba(16, 18, 22, 0.82);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+}
+
+.enemy-bar__fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, #4df0a2, #f4d35e, #fb5b5b);
+  transform-origin: left center;
+}
+
+.hud {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 90px 1fr;
+  align-items: end;
+  padding: 24px;
+  pointer-events: none;
+}
+
+.hud__left,
+.hud__right {
+  display: flex;
+  gap: 10px;
+}
+
+.hud__right {
+  justify-content: flex-end;
+}
+
+.hud__center {
+  align-self: center;
+  justify-self: center;
+}
+
+.meter {
+  min-width: 104px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(18, 20, 25, 0.62);
+  backdrop-filter: blur(14px);
+  padding: 9px 12px;
+  border-radius: 6px;
+}
+
+.meter span {
+  display: block;
+  color: rgba(243, 245, 247, 0.7);
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.meter strong {
+  display: block;
+  margin-top: 3px;
+  color: #ffffff;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.crosshair {
+  width: 24px;
+  height: 24px;
+  position: relative;
+  opacity: 0.9;
+}
+
+.crosshair::before,
+.crosshair::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 24px;
+  background: rgba(255, 255, 255, 0.82);
+  transform: translate(-50%, -50%);
+}
+
+.crosshair::after {
+  width: 24px;
+  height: 2px;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  top: 24px;
+  min-width: 220px;
+  max-width: min(520px, calc(100vw - 32px));
+  transform: translate(-50%, -16px);
+  opacity: 0;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  padding: 10px 14px;
+  background: rgba(12, 14, 18, 0.72);
+  color: #f8fafc;
+  text-align: center;
+  pointer-events: none;
+  transition:
+    opacity 0.18s ease,
+    transform 0.18s ease;
+}
+
+.toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+.menu {
+  position: fixed;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background:
+    linear-gradient(rgba(12, 13, 16, 0.34), rgba(12, 13, 16, 0.72)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1400' height='900' viewBox='0 0 1400 900'%3E%3Crect width='1400' height='900' fill='%2322262d'/%3E%3Cpath d='M0 682L196 588L424 626L658 520L880 565L1120 456L1400 516V900H0z' fill='%233f4b51'/%3E%3Cpath d='M0 742L230 710L425 744L690 650L906 704L1190 612L1400 660V900H0z' fill='%232f837c' opacity='.82'/%3E%3Crect x='130' y='382' width='200' height='238' fill='%23776556'/%3E%3Crect x='156' y='320' width='154' height='62' fill='%23b95d4f'/%3E%3Crect x='1020' y='304' width='246' height='304' fill='%235a6f86'/%3E%3Crect x='1050' y='242' width='186' height='62' fill='%23c9a64a'/%3E%3Crect x='560' y='430' width='220' height='148' fill='%23895343'/%3E%3Crect x='604' y='376' width='134' height='54' fill='%23decf83'/%3E%3C/svg%3E");
+  background-size: cover;
+  background-position: center;
+  transition: opacity 0.2s ease;
+}
+
+.menu.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#start {
+  min-width: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 6px;
+  padding: 14px 18px;
+  background: #f2c14e;
+  color: #15171c;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.34);
+}
+
+@media (max-width: 720px) {
+  .hud {
+    grid-template-columns: 1fr;
+    align-items: end;
+    padding: 14px;
+  }
+
+  .hud__left,
+  .hud__right {
+    gap: 8px;
+  }
+
+  .hud__right {
+    justify-content: flex-start;
+    margin-top: 8px;
+  }
+
+  .hud__center {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+  }
+
+  .meter {
+    min-width: 88px;
+    padding: 8px 10px;
+  }
+
+  .meter strong {
+    font-size: 18px;
+  }
+}

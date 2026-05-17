@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sandbox FPS</title>
+  </head>
+  <body>
+    <div id="game"></div>
+    <div id="enemy-bars"></div>
+    <div class="hud">
+      <div class="hud__left">
+        <div class="meter">
+          <span>生命</span>
+          <strong id="health">100</strong>
+        </div>
+        <div class="meter">
+          <span>护甲</span>
+          <strong id="armor">50</strong>
+        </div>
+      </div>
+      <div class="hud__center">
+        <div class="crosshair" aria-hidden="true"></div>
+      </div>
+      <div class="hud__right">
+        <div class="meter">
+          <span>弹药</span>
+          <strong id="ammo">30 / 90</strong>
+        </div>
+        <div class="meter">
+          <span>沙盒</span>
+          <strong id="builds">12</strong>
+        </div>
+      </div>
+    </div>
+    <div class="toast" id="toast"></div>
+    <div class="menu" id="menu">
+      <button id="start">开始行动</button>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
