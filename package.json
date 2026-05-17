@@ -1,5 +1,5 @@
 {
-  "name": "sandbox-fps",
+  "name": "english-match-pop",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -8,8 +8,7 @@
     "build": "vite build"
   },
   "dependencies": {
-    "vite": "^6.3.6",
-    "three": "^0.176.0"
+    "vite": "^6.3.6"
   },
   "devDependencies": {}
 }
