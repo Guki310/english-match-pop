@@ -109,6 +109,12 @@ select {
   font-size: 1.22rem;
 }
 
+.icon-button.is-on {
+  border-color: #2ec4b6;
+  background: #dff8f2;
+  box-shadow: 0 6px 0 rgba(46, 196, 182, 0.32);
+}
+
 .scoreboard {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

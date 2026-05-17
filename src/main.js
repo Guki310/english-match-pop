@@ -28,6 +28,14 @@ const LEVELS = {
 };
 
 const app = document.querySelector("#app");
+const AudioContext = window.AudioContext || window.webkitAudioContext;
+
+const music = {
+  context: null,
+  gain: null,
+  timer: null,
+  step: 0,
+};
 
 const state = {
   level: "happy",
@@ -39,9 +47,23 @@ const state = {
   score: 0,
   combo: 0,
   sound: true,
+  music: false,
   message: "选图片，再选英文",
   best: Number(localStorage.getItem("english-match-best") || 0),
 };
+
+const MELODY = [
+  { note: 523.25, length: 0.32 },
+  { note: 659.25, length: 0.32 },
+  { note: 783.99, length: 0.48 },
+  { note: 659.25, length: 0.32 },
+  { note: 587.33, length: 0.32 },
+  { note: 698.46, length: 0.48 },
+  { note: 659.25, length: 0.32 },
+  { note: 523.25, length: 0.56 },
+];
+
+const BASS = [261.63, 329.63, 392.0, 349.23];
 
 function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
@@ -130,6 +152,60 @@ function speak(word) {
   window.speechSynthesis.speak(utterance);
 }
 
+function ensureMusic() {
+  if (!AudioContext) return false;
+  if (!music.context) {
+    music.context = new AudioContext();
+    music.gain = music.context.createGain();
+    music.gain.gain.value = 0.055;
+    music.gain.connect(music.context.destination);
+  }
+  return true;
+}
+
+function playTone(frequency, start, length, volume, type = "sine") {
+  const oscillator = music.context.createOscillator();
+  const noteGain = music.context.createGain();
+  oscillator.type = type;
+  oscillator.frequency.setValueAtTime(frequency, start);
+  noteGain.gain.setValueAtTime(0.0001, start);
+  noteGain.gain.exponentialRampToValueAtTime(volume, start + 0.025);
+  noteGain.gain.exponentialRampToValueAtTime(0.0001, start + length);
+  oscillator.connect(noteGain);
+  noteGain.connect(music.gain);
+  oscillator.start(start);
+  oscillator.stop(start + length + 0.03);
+}
+
+function scheduleMusic() {
+  if (!state.music || !music.context) return;
+  const item = MELODY[music.step % MELODY.length];
+  const now = music.context.currentTime;
+  const bass = BASS[Math.floor(music.step / 2) % BASS.length];
+
+  playTone(item.note, now, item.length, 0.34);
+  if (music.step % 2 === 0) {
+    playTone(bass, now, 0.5, 0.18, "triangle");
+  }
+
+  music.step += 1;
+  music.timer = window.setTimeout(scheduleMusic, item.length * 1000);
+}
+
+async function toggleMusic() {
+  if (!ensureMusic()) return;
+
+  state.music = !state.music;
+  if (state.music) {
+    await music.context.resume();
+    scheduleMusic();
+  } else {
+    window.clearTimeout(music.timer);
+    music.timer = null;
+  }
+  render();
+}
+
 function isSelected(card) {
   return state.selected.some((item) => item.uid === card.uid);
 }
@@ -192,6 +268,9 @@ function render() {
           <button class="icon-button" id="sound" aria-label="发音开关" title="发音">
             ${state.sound ? "🔊" : "🔇"}
           </button>
+          <button class="icon-button ${state.music ? "is-on" : ""}" id="music" aria-label="背景音乐开关" title="背景音乐">
+            ${state.music ? "🎵" : "🎶"}
+          </button>
           <button class="primary" id="restart">新一局</button>
         </div>
       </header>
@@ -240,6 +319,9 @@ function bindEvents() {
   document.querySelector("#sound").addEventListener("click", () => {
     state.sound = !state.sound;
     render();
+  });
+  document.querySelector("#music").addEventListener("click", () => {
+    toggleMusic();
   });
 
   document.querySelector("#again")?.addEventListener("click", () => startRound());
