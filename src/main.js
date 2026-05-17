@@ -239,8 +239,8 @@ function cardTemplate(card) {
       <span class="spark spark-two"></span>
       ${
         card.type === "picture"
-          ? `<span class="bubble"><span class="emoji" aria-hidden="true">${card.emoji}</span></span>`
-          : `<span class="word">${card.word}</span><span class="sound-mark">Aa</span>`
+          ? `<span class="bubble"><span class="blush blush-left"></span><span class="blush blush-right"></span><span class="emoji" aria-hidden="true">${card.emoji}</span></span>`
+          : `<span class="word-wrap"><span class="word">${card.word}</span><span class="word-dots" aria-hidden="true"></span></span><span class="sound-mark">Aa</span>`
       }
     </button>
   `;
